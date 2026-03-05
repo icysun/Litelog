@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
@@ -48,8 +48,10 @@ const config: Config = {
     navbar: {
       title: 'LiteLog',
       logo: {
-        alt: 'LiteLog Logo',
+        alt: 'LiteLog',
         src: 'img/logo.png',
+        height: 28,
+        width: 'auto',
       },
       items: [
         {
@@ -71,21 +73,21 @@ const config: Config = {
         {
           title: 'Docs',
           items: [
-            {label: 'Quick Start', to: '/docs/quick-start'},
-            {label: 'Commands', to: '/docs/commands'},
-            {label: 'Architecture', to: '/docs/architecture'},
+            { label: 'Quick Start', to: '/docs/quick-start' },
+            { label: 'Commands', to: '/docs/commands' },
+            { label: 'Architecture', to: '/docs/architecture' },
           ],
         },
         {
           title: 'Community',
           items: [
-            {label: 'GitHub', href: 'https://github.com/yashnaiduu/Litelog'},
-            {label: 'Issues', href: 'https://github.com/yashnaiduu/Litelog/issues'},
-            {label: 'Pull Requests', href: 'https://github.com/yashnaiduu/Litelog/pulls'},
+            { label: 'GitHub', href: 'https://github.com/yashnaiduu/Litelog' },
+            { label: 'Issues', href: 'https://github.com/yashnaiduu/Litelog/issues' },
+            { label: 'Pull Requests', href: 'https://github.com/yashnaiduu/Litelog/pulls' },
           ],
         },
       ],
-      copyright: `© ${new Date().getFullYear()} LiteLog. Built with ❤️ and Go.`,
+      copyright: `Copyright ${new Date().getFullYear()} LiteLog. Built with Go and SQLite.`,
     },
     prism: {
       theme: prismThemes.oneDark,

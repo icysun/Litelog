@@ -21,7 +21,7 @@ Most developers running side projects, indie SaaS, or small production systems r
 tail -f app.log | grep error
 ```
 
-This gives you no persistence, no structure, no cross-service view.
+This gives you no persistence, no structure, and no cross-service view.
 
 Heavy stacks like ELK require 2GB+ RAM, multiple containers, and hours of configuration.
 
@@ -35,7 +35,7 @@ One command. A full logging stack. 40MB of RAM.
 
 ## Core Commands
 
-| Command | What it does |
+| Command | Description |
 |---|---|
 | `litelog start` | Start the ingestion server |
 | `litelog ingest` | Pipe any program's stdout/stderr into LiteLog |

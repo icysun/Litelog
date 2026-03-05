@@ -1,144 +1,171 @@
 import type { ReactNode } from 'react';
-import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import styles from './index.module.css';
 
 const features = [
   {
-    icon: '⚡',
-    title: 'Ridiculously Fast',
-    description: 'Async Go goroutines + SQLite WAL mode. Handles thousands of logs per second at ~40MB RAM.',
-  },
-  {
-    icon: '📦',
-    title: 'Single Binary',
-    description: 'No containers. No config files. One binary that runs anywhere — Mac, Linux, Raspberry Pi, Docker.',
-  },
-  {
-    icon: '🔍',
-    title: 'SQL Query Engine',
-    description: 'Query your logs with standard SQL directly from the terminal. Group, filter, aggregate — all local.',
-  },
-  {
-    icon: '🌊',
-    title: 'Real-Time Streaming',
-    description: 'Stream live logs with litelog tail. Filter by service or level as your app runs.',
-  },
-  {
-    icon: '📊',
-    title: 'Terminal Dashboard',
-    description: 'htop-style live dashboard showing logs/sec, error rates, top services and recent errors.',
-  },
-  {
-    icon: '🗄️',
     title: 'Zero Configuration',
-    description: 'Run litelog start and you have a full logging stack. Database is created automatically.',
+    description: 'No YAML files. No containers. Run one binary and your entire logging stack is live in under a second.',
+  },
+  {
+    title: 'SQL Query Interface',
+    description: 'Query structured logs with standard SQL directly from the terminal. Filter, group, and aggregate.',
+  },
+  {
+    title: 'Real-Time Streaming',
+    description: 'Stream live logs with litelog tail. Filter by service or level as events arrive.',
+  },
+  {
+    title: 'Terminal Dashboard',
+    description: 'A live, full-screen terminal dashboard showing ingestion rates, error counts, and top services.',
+  },
+  {
+    title: 'Async Ingestion Pipeline',
+    description: 'HTTP handler returns immediately. Logs are batched and flushed asynchronously via background goroutines.',
+  },
+  {
+    title: 'Log Retention',
+    description: 'Automatic retention policies keep your database lean. Set it once with --retention 7d and forget it.',
   },
 ];
-
-function Feature({ icon, title, description }: { icon: string; title: string; description: string }) {
-  return (
-    <div className={clsx('col col--4', styles.featureCol)}>
-      <div className="feature-card">
-        <div className="feature-icon">{icon}</div>
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </div>
-    </div>
-  );
-}
 
 export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout title="LiteLog" description="Centralized logging without the infrastructure.">
-      <main>
-        {/* Hero */}
-        <div className="hero">
-          <div className="container" style={{ textAlign: 'center' }}>
+    <Layout title="LiteLog — Centralized logging without the infrastructure" description="A single binary log aggregation system for developers. No containers, no config. Just fast, structured logging.">
+
+      {/* Hero */}
+      <section className="hero-section">
+        <div className="container">
+          <div className="hero-badge">Open Source Developer Tool</div>
+
+          <div className="hero-logo-wrapper" style={{ justifyContent: 'center' }}>
             <img src="img/logo.png" alt="LiteLog" className="hero-logo" />
-            <h1 className="hero__title">LiteLog</h1>
-            <p className="hero__subtitle">
-              Centralized logging without the infrastructure.<br />
-              The SQLite of logging systems.
-            </p>
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link className="button button--primary button--lg" to="/docs/quick-start">
-                Get Started →
-              </Link>
-              <Link className="button button--secondary button--lg" href="https://github.com/yashnaiduu/Litelog">
-                View on GitHub
-              </Link>
-            </div>
+            <span className="hero-wordmark">LiteLog</span>
+          </div>
 
-            {/* Install snippet */}
-            <div style={{ marginTop: '2.5rem', display: 'inline-block', textAlign: 'left' }}>
-              <pre style={{
-                background: '#010409',
-                border: '1px solid rgba(4,181,117,0.3)',
-                borderRadius: '8px',
-                padding: '1rem 1.5rem',
-                fontSize: '0.95rem',
-                color: '#04b575',
-              }}>
-                <code>
-                  git clone https://github.com/yashnaiduu/Litelog.git{'\n'}
-                  cd Litelog && go build -o litelog cmd/litelog/main.go{'\n'}
-                  ./litelog start
-                </code>
-              </pre>
+          <h1 className="hero-title">
+            Centralized logging<br />
+            <span>without the infrastructure.</span>
+          </h1>
+
+          <p className="hero-subtitle">
+            A single Go binary that ingests, stores, and queries logs at high
+            throughput — without Elasticsearch, Logstash, or Kibana.
+          </p>
+
+          <div className="hero-actions">
+            <Link className="btn-primary" to="/docs/quick-start">
+              Get Started
+            </Link>
+            <Link className="btn-secondary" href="https://github.com/yashnaiduu/Litelog">
+              View on GitHub
+            </Link>
+          </div>
+
+          <div className="hero-code">
+            <div className="hero-code-header">
+              <span className="dot dot-red" />
+              <span className="dot dot-yellow" />
+              <span className="dot dot-green" />
+            </div>
+            <pre>
+              <span className="code-comment"># Install</span>{'\n'}
+              <span className="code-cmd">git clone</span>{' '}https://github.com/yashnaiduu/Litelog{'\n'}
+              <span className="code-cmd">go build</span>{' '}-o litelog cmd/litelog/main.go{'\n'}
+              {'\n'}
+              <span className="code-comment"># Start the server</span>{'\n'}
+              <span className="code-cmd">./litelog start</span>{' '}--retention 7d{'\n'}
+              {'\n'}
+              <span className="code-comment"># Query your logs</span>{'\n'}
+              <span className="code-cmd">./litelog query</span>{' '}"SELECT * FROM logs WHERE level='ERROR'"
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <div className="stats-bar">
+        <div className="container">
+          <div className="stats-grid">
+            <div>
+              <div className="stat-value">~40MB</div>
+              <div className="stat-label">RAM Usage</div>
+            </div>
+            <div>
+              <div className="stat-value">&lt; 1s</div>
+              <div className="stat-label">Startup Time</div>
+            </div>
+            <div>
+              <div className="stat-value">Single Binary</div>
+              <div className="stat-label">No Dependencies</div>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Features */}
-        <div className="container" style={{ padding: '4rem 0' }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '2.5rem', fontSize: '2rem' }}>Why LiteLog?</h2>
-          <div className="row" style={{ gap: '1rem 0' }}>
-            {features.map((f) => <Feature key={f.title} {...f} />)}
-          </div>
-        </div>
-
-        {/* Benchmarks */}
-        <div style={{ background: 'rgba(4,181,117,0.04)', padding: '4rem 0' }}>
-          <div className="container">
-            <h2 style={{ textAlign: 'center', marginBottom: '2.5rem', fontSize: '2rem' }}>Benchmarks</h2>
-            <div className="row">
-              <div className="col col--6">
-                <h3>RAM Usage</h3>
-                <table className="benchmark-table" style={{ width: '100%' }}>
-                  <thead><tr><th>Tool</th><th>RAM</th></tr></thead>
-                  <tbody>
-                    <tr><td>ELK Stack</td><td>2GB+</td></tr>
-                    <tr><td><strong style={{ color: '#04b575' }}>LiteLog</strong></td><td><strong style={{ color: '#04b575' }}>~40MB</strong></td></tr>
-                  </tbody>
-                </table>
+      {/* Features */}
+      <section className="features-section">
+        <div className="container">
+          <div className="section-label">Features</div>
+          <h2 className="section-title">Built for developers who ship fast</h2>
+          <p className="section-subtitle">
+            Everything you need for structured logging without the overhead of enterprise observability stacks.
+          </p>
+          <div className="features-grid">
+            {features.map((f) => (
+              <div key={f.title} className="feature-card">
+                <div className="feature-marker" />
+                <div className="feature-title">{f.title}</div>
+                <p className="feature-desc">{f.description}</p>
               </div>
-              <div className="col col--6">
-                <h3>Startup Time</h3>
-                <table className="benchmark-table" style={{ width: '100%' }}>
-                  <thead><tr><th>Tool</th><th>Time</th></tr></thead>
-                  <tbody>
-                    <tr><td>Elasticsearch</td><td>~30s</td></tr>
-                    <tr><td><strong style={{ color: '#04b575' }}>LiteLog</strong></td><td><strong style={{ color: '#04b575' }}>&lt;1s</strong></td></tr>
-                  </tbody>
-                </table>
-              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benchmarks */}
+      <section className="benchmark-section">
+        <div className="container">
+          <div className="section-label">Performance</div>
+          <h2 className="section-title">Built to be lightweight</h2>
+          <p className="section-subtitle">
+            LiteLog is designed for low-resource environments. Compare it to popular alternatives.
+          </p>
+          <div className="benchmark-grid">
+            <div className="benchmark-card">
+              <div className="benchmark-card-header">RAM Usage</div>
+              <div className="benchmark-row"><span className="benchmark-tool">ELK Stack</span><span className="benchmark-val">2 GB+</span></div>
+              <div className="benchmark-row"><span className="benchmark-tool">Prometheus + Grafana</span><span className="benchmark-val">500 MB+</span></div>
+              <div className="benchmark-row highlight"><span className="benchmark-tool">LiteLog</span><span className="benchmark-val">~40 MB</span></div>
+            </div>
+            <div className="benchmark-card">
+              <div className="benchmark-card-header">Startup Time</div>
+              <div className="benchmark-row"><span className="benchmark-tool">Elasticsearch</span><span className="benchmark-val">~30s</span></div>
+              <div className="benchmark-row"><span className="benchmark-tool">Logstash</span><span className="benchmark-val">~15s</span></div>
+              <div className="benchmark-row highlight"><span className="benchmark-tool">LiteLog</span><span className="benchmark-val">&lt; 1s</span></div>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* CTA */}
-        <div className="container" style={{ textAlign: 'center', padding: '4rem 0' }}>
-          <h2 style={{ fontSize: '2rem' }}>Ready to ditch the heavy stack?</h2>
-          <p style={{ opacity: 0.7, marginBottom: '1.5rem' }}>One binary. Zero config. Full power.</p>
-          <Link className="button button--primary button--lg" to="/docs/quick-start">
-            Read the Docs →
-          </Link>
+      {/* CTA */}
+      <section className="cta-section">
+        <div className="container">
+          <h2 className="cta-title">Ready to replace your logging stack?</h2>
+          <p className="cta-subtitle">One binary. Zero configuration. Full SQL power.</p>
+          <div className="hero-actions">
+            <Link className="btn-primary" to="/docs/quick-start">
+              Read the Docs
+            </Link>
+            <Link className="btn-secondary" href="https://github.com/yashnaiduu/Litelog">
+              Star on GitHub
+            </Link>
+          </div>
         </div>
-      </main>
+      </section>
+
     </Layout>
   );
 }
