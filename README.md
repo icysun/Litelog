@@ -11,7 +11,8 @@
     <a href="#-features">Features</a> •
     <a href="#-quick-start">Quick Start</a> •
     <a href="#-the-5-core-commands">Commands</a> •
-    <a href="#-architecture">Architecture</a>
+    <a href="#-architecture">Architecture</a> •
+    <a href="docs/GUIDE.md">📖 Full Guide</a>
   </p>
 </div>
 
