@@ -22,7 +22,6 @@ var ingestCmd = &cobra.Command{
 		for scanner.Scan() {
 			line := scanner.Text()
 			
-			// Simple heuristic to extract log level
 			level := "INFO"
 			upperLine := strings.ToUpper(line)
 			if strings.Contains(upperLine, "ERROR") || strings.Contains(upperLine, "ERR") {

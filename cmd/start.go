@@ -45,7 +45,6 @@ var startCmd = &cobra.Command{
 				log.Fatalf("Invalid retention duration format. Use 'd', 'h', or 'm' (e.g. 7d, 24h)")
 			}
 
-			// Validate it's a number
 			numPart := strings.TrimSuffix(strings.TrimSuffix(strings.TrimSuffix(retention, "d"), "h"), "m")
 			if _, err := strconv.Atoi(numPart); err != nil {
 				log.Fatalf("Invalid retention value: %v", err)

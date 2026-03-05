@@ -25,13 +25,11 @@ var tailCmd = &cobra.Command{
 
 		var lastID int64 = 0
 
-		// Get max ID initially
 		row := storage.DB.QueryRow("SELECT COALESCE(MAX(id), 0) FROM logs")
 		if err := row.Scan(&lastID); err != nil {
 			log.Printf("Failed to get latest log ID: %v", err)
 		}
 
-		// Simple polling mechanism
 		for {
 			query := "SELECT id, timestamp, level, service, message FROM logs WHERE id > ?"
 			var queryArgs []interface{}
@@ -63,7 +61,6 @@ var tailCmd = &cobra.Command{
 					continue
 				}
 
-				// Simplify timestamp
 				if parsedTs, err := time.Parse(time.RFC3339, ts); err == nil {
 					ts = parsedTs.Format("15:04:05")
 				} else if parsedTs, err := time.Parse("2006-01-02 15:04:05", ts); err == nil {

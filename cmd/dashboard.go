@@ -35,12 +35,6 @@ var (
 	errorStyle = lipgloss.NewStyle().
 		Foreground(lipgloss.Color("#FF5F87"))
 
-	warningStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#D78700"))
-
-	infoStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#00AFFF"))
-
 	fadedStyle = lipgloss.NewStyle().
 		Foreground(lipgloss.Color("#626262"))
 )
@@ -69,21 +63,16 @@ type model struct {
 func fetchStats() DashboardStats {
 	var s DashboardStats
 	
-	// Total Logs
 	storage.DB.QueryRow("SELECT COUNT(*) FROM logs").Scan(&s.TotalLogs)
 
-	// Logs per sec (naive based on last 5 seconds to reduce jitter, then divided)
 	var logsLast5 int
 	storage.DB.QueryRow("SELECT COUNT(*) FROM logs WHERE timestamp >= datetime('now', '-5 seconds')").Scan(&logsLast5)
 	s.LogsPerSec = logsLast5 / 5
 
-	// Errors per min
 	storage.DB.QueryRow("SELECT COUNT(*) FROM logs WHERE level = 'ERROR' AND timestamp >= datetime('now', '-1 minute')").Scan(&s.ErrorsPerMin)
 
-	// Active Services
 	storage.DB.QueryRow("SELECT COUNT(DISTINCT service) FROM logs WHERE timestamp >= datetime('now', '-5 minutes')").Scan(&s.ActiveServices)
 
-	// Top Services
 	rows, err := storage.DB.Query("SELECT service, COUNT(*) as c FROM logs GROUP BY service ORDER BY c DESC LIMIT 5")
 	if err == nil {
 		for rows.Next() {
@@ -94,7 +83,6 @@ func fetchStats() DashboardStats {
 		rows.Close()
 	}
 
-	// Recent Errors
 	rows, err = storage.DB.Query("SELECT id, timestamp, level, service, message FROM logs WHERE level = 'ERROR' ORDER BY timestamp DESC LIMIT 5")
 	if err == nil {
 		for rows.Next() {
@@ -108,9 +96,8 @@ func fetchStats() DashboardStats {
 				ts = parsedTs.Format("15:04:05")
 			}
 			s.RecentErrors = append(s.RecentErrors, models.LogEntry{
-				Timestamp: time.Now(), // unused
-				Service:   ts + " " + e.Service, // HACK: reusing Service to store timestamp + service
-				Message:   e.Message,
+				Service: ts + " " + e.Service,
+				Message: e.Message,
 			})
 		}
 		rows.Close()
@@ -163,7 +150,6 @@ func (m model) View() string {
 	view.WriteString("\n")
 	view.WriteString(buildDivider(36))
 
-	// Stats Group
 	renderStat := func(name string, val int) {
 		view.WriteString(statNameStyle.Render(name))
 		view.WriteString(statValueStyle.Render(fmt.Sprintf("%d", val)))

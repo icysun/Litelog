@@ -16,7 +16,6 @@ func InitDB(dbPath string) error {
 		return err
 	}
 
-	// Enable WAL mode and optimize pragmas for high writes
 	pragmas := []string{
 		"PRAGMA journal_mode = WAL;",
 		"PRAGMA synchronous = NORMAL;",

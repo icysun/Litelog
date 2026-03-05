@@ -14,7 +14,6 @@ import (
 var LogQueue chan models.LogEntry
 
 func init() {
-	// Buffer allowing massive bursts, up to 100k
 	LogQueue = make(chan models.LogEntry, 100000)
 }
 
@@ -67,7 +66,6 @@ func StartHttpServer(port string) error {
 			return
 		}
 
-		// Send to async queue immediately
 		select {
 		case LogQueue <- models.LogEntry{
 			Level:   req.Level,
