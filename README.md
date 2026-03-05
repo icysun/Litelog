@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://via.placeholder.com/150x150/04B575/FFFFFF?text=LiteLog" alt="LiteLog Logo" width="120" height="120">
+  <img src="logo.png" alt="LiteLog Logo" width="120" height="120">
   
   <h1>LiteLog</h1>
   <p><b>Centralized logging without the infrastructure. The SQLite of logging systems.</b></p>
