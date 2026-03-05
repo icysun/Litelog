@@ -1,6 +1,6 @@
 <div align="center">
   <h1>
-    <img src="logo.png" alt="LiteLog Logo" width="450"><br>
+    <img src="logo.png" alt="LiteLog Logo" width="180"><br>
     LiteLog
   </h1>
   <p><b>Centralized logging without the infrastructure. The SQLite of logging systems.</b></p>
