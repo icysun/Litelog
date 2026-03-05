@@ -2,16 +2,16 @@
   <img src="logo.png" alt="LiteLog Logo" width="350">
   <p><b>Centralized logging without the infrastructure. The SQLite of logging systems.</b></p>
 
-  [![Go](https://img.shields.io/badge/go-1.21%2B-333333.svg?style=flat-square&logo=go)](https://golang.org)
-  [![License](https://img.shields.io/badge/license-MIT-333333.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-333333.svg?style=flat-square)](http://makeapullrequest.com)
+  [![Go](https://img.shields.io/badge/go-1.21%2B-333333.svg?style=flat-square&logo=go)](https://github.com/yashnaiduu/Litelog)
+  [![License](https://img.shields.io/badge/license-MIT-333333.svg?style=flat-square)](https://github.com/yashnaiduu/Litelog/blob/main/LICENSE)
+  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-333333.svg?style=flat-square)](https://github.com/yashnaiduu/Litelog/pulls)
 
   <p>
-    <a href="#why-litelog">Why?</a> •
-    <a href="#features">Features</a> •
-    <a href="#quick-start">Quick Start</a> •
-    <a href="#the-5-core-commands">Commands</a> •
-    <a href="#architecture">Architecture</a>
+    <a href="#-why-litelog">Why?</a> •
+    <a href="#-features">Features</a> •
+    <a href="#-quick-start">Quick Start</a> •
+    <a href="#-the-5-core-commands">Commands</a> •
+    <a href="#-architecture">Architecture</a>
   </p>
 </div>
 
