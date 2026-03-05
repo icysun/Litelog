@@ -1,12 +1,11 @@
 <div align="center">
-  <img src="logo.png" alt="LiteLog Logo" width="120" height="120">
-  
-  <h1>LiteLog</h1>
-  <p><b>Centralized logging without the infrastructure. The SQLite of logging systems.</b></p>
+  <img src="logo.png" alt="LiteLog Logo" width="240">
+  <h1 style="margin-bottom: 0;">LiteLog</h1>
+  <p style="margin-top: 0;"><b>Centralized logging without the infrastructure. The SQLite of logging systems.</b></p>
 
-  [![Go](https://img.shields.io/badge/go-1.21%2B-blue.svg)](https://golang.org)
-  [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
-  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+  [![Go](https://img.shields.io/badge/go-1.21%2B-333333.svg?style=flat-square&logo=go)](https://golang.org)
+  [![License](https://img.shields.io/badge/license-MIT-333333.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-333333.svg?style=flat-square)](http://makeapullrequest.com)
 
   <p>
     <a href="#why-litelog">Why?</a> •
