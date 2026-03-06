@@ -222,9 +222,17 @@ html {
   flex-shrink: 0;
 }
 
-.dot-red   { background: #ff5f57; }
-.dot-yellow { background: #febc2e; }
-.dot-green  { background: #28c840; }
+.dot-red {
+  background: #ff5f57;
+}
+
+.dot-yellow {
+  background: #febc2e;
+}
+
+.dot-green {
+  background: #28c840;
+}
 
 .hero-code pre {
   margin: 0;
@@ -238,8 +246,13 @@ html {
   -webkit-overflow-scrolling: touch;
 }
 
-.code-comment { color: #52525b; }
-.code-cmd     { color: var(--ifm-color-primary); }
+.code-comment {
+  color: #52525b;
+}
+
+.code-cmd {
+  color: var(--ifm-color-primary);
+}
 
 /* =====================
    Stats Bar
@@ -400,9 +413,13 @@ html {
   font-size: 0.875rem;
 }
 
-.benchmark-row:last-child { border-bottom: none; }
+.benchmark-row:last-child {
+  border-bottom: none;
+}
 
-.benchmark-tool { color: #a1a1aa; }
+.benchmark-tool {
+  color: #a1a1aa;
+}
 
 .benchmark-val {
   color: #52525b;
@@ -596,5 +613,157 @@ article .theme-doc-markdown table th {
 
   .hero-badge {
     font-size: 0.65rem;
+  }
+}
+
+/* =====================
+   Docs — Global Fixes
+   ===================== */
+
+/* Tables: always scrollable, never overflow the viewport */
+.markdown table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-collapse: collapse;
+}
+
+/* Code blocks: scroll horizontally on narrow screens */
+.markdown pre,
+.theme-code-block pre {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Inline code: wrap rather than overflow on very small screens */
+.markdown code {
+  word-break: break-word;
+}
+
+/* Doc article: comfortable max width & padding */
+.docMainContainer article {
+  max-width: 100%;
+}
+
+/* Admonitions (note/tip/warning blocks): full-width on mobile */
+.alert {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* =====================
+   Docs — Tablet (≤ 996px)
+   ===================== */
+@media (max-width: 996px) {
+
+  /* Sidebar becomes a collapsible drawer — Docusaurus handles this natively.
+     We just tighten the article padding when sidebar is hidden. */
+  .docPage {
+    padding: 0;
+  }
+
+  /* Give doc content breathing room on tablet */
+  .docMainContainer {
+    padding: 0 1.25rem;
+  }
+
+  /* Navbar hamburger area */
+  .navbar__items--right {
+    gap: 0.5rem;
+  }
+}
+
+/* =====================
+   Docs — Phone (≤ 640px)
+   ===================== */
+@media (max-width: 640px) {
+
+  /* Tighten doc content padding */
+  .docMainContainer {
+    padding: 0 1rem;
+  }
+
+  /* Doc page headings — prevent awkward overflow */
+  .markdown h1 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    word-break: break-word;
+  }
+
+  .markdown h2 {
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
+  }
+
+  .markdown h3 {
+    font-size: 1rem;
+  }
+
+  /* Table cells: tighter padding */
+  .markdown td,
+  .markdown th {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.825rem;
+    white-space: nowrap;
+  }
+
+  /* Code block font slightly smaller on phone */
+  .markdown pre code {
+    font-size: 0.78rem;
+    line-height: 1.65;
+  }
+
+  /* Pagination nav: stack prev/next vertically */
+  .pagination-nav {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .pagination-nav__item {
+    width: 100%;
+  }
+
+  .pagination-nav__link {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* TOC (table of contents): hidden on phone by Docusaurus — we also
+     ensure the article gets back the full width */
+  .col--3 {
+    display: none;
+  }
+
+  .col--9 {
+    --ifm-col-width: calc(12 / 12 * 100%);
+  }
+
+  /* Breadcrumbs: allow wrapping */
+  .breadcrumbs__item {
+    font-size: 0.8rem;
+  }
+
+  /* Edit this page / last updated row */
+  .theme-doc-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* =====================
+   Docs — Very Small (≤ 380px)
+   ===================== */
+@media (max-width: 380px) {
+  .docMainContainer {
+    padding: 0 0.75rem;
+  }
+
+  .markdown pre code {
+    font-size: 0.72rem;
+  }
+
+  .navbar {
+    padding: 0 0.75rem;
   }
 }

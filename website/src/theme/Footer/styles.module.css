@@ -57,6 +57,7 @@
 .columns {
     display: flex;
     gap: 3rem;
+    flex-wrap: wrap;
 }
 
 .column {
@@ -110,6 +111,7 @@
 .bottomLinks {
     display: flex;
     gap: 1.25rem;
+    flex-wrap: wrap;
 }
 
 .bottomLink {
@@ -121,4 +123,59 @@
 
 .bottomLink:hover {
     color: #71717a;
+}
+
+/* ── Tablet (≤ 768px) ── */
+@media (max-width: 768px) {
+    .inner {
+        padding: 0 1.25rem;
+    }
+
+    .top {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .brand {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .columns {
+        gap: 2rem;
+        width: 100%;
+    }
+
+    .column {
+        min-width: 120px;
+        flex: 1;
+    }
+}
+
+/* ── Phone (≤ 480px) ── */
+@media (max-width: 480px) {
+    .inner {
+        padding: 0 1rem;
+    }
+
+    .columns {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .column {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .bottomLinks {
+        gap: 1rem;
+    }
 }
