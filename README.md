@@ -8,8 +8,10 @@
   [![CI](https://img.shields.io/github/actions/workflow/status/yashnaiduu/Litelog/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/yashnaiduu/Litelog/actions)
   [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
   [![Go Report Card](https://goreportcard.com/badge/github.com/yashnaiduu/Litelog?style=flat-square)](https://goreportcard.com/report/github.com/yashnaiduu/Litelog)
+  [![Website](https://img.shields.io/badge/website-litelog-04b575.svg?style=flat-square)](https://yashnaiduu.github.io/Litelog/)
 
   <p>
+    <a href="https://yashnaiduu.github.io/Litelog/">Website</a> •
     <a href="#why-litelog">Why?</a> •
     <a href="#features">Features</a> •
     <a href="#installation">Installation</a> •
@@ -170,6 +172,7 @@ See [ROADMAP.md](ROADMAP.md) for the full planned feature set.
 
 LiteLog is fully open source under the Apache 2.0 license. Contributions are welcome.
 
+- Browse the **[documentation website →](https://yashnaiduu.github.io/Litelog/)**
 - Report bugs or request features via [GitHub Issues](https://github.com/yashnaiduu/Litelog/issues)
 - Read the [Contributing Guide](CONTRIBUTING.md) for setup, standards, and PR process
 - Review the [Code of Conduct](CODE_OF_CONDUCT.md)
