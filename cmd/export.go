@@ -30,7 +30,7 @@ var exportCmd = &cobra.Command{
 			query += " WHERE service = ?"
 			queryArgs = append(queryArgs, exportService)
 		}
-		
+
 		query += " ORDER BY id ASC"
 
 		rows, err := storage.DB.Query(query, queryArgs...)
@@ -47,7 +47,7 @@ var exportCmd = &cobra.Command{
 				log.Printf("Failed to scan row: %v", err)
 				continue
 			}
-			
+
 			logs = append(logs, entry)
 		}
 

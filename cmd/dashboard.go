@@ -15,28 +15,28 @@ import (
 
 var (
 	titleStyle = lipgloss.NewStyle().
-		Bold(true).
-		Foreground(lipgloss.Color("#04B575")).
-		MarginBottom(1)
+			Bold(true).
+			Foreground(lipgloss.Color("#04B575")).
+			MarginBottom(1)
 
 	headerStyle = lipgloss.NewStyle().
-		Bold(true).
-		Foreground(lipgloss.Color("#FFFFFF")).
-		MarginBottom(1)
+			Bold(true).
+			Foreground(lipgloss.Color("#FFFFFF")).
+			MarginBottom(1)
 
 	statNameStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#A8A8A8")).
-		Width(20)
+			Foreground(lipgloss.Color("#A8A8A8")).
+			Width(20)
 
 	statValueStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#04B575")).
-		Bold(true)
+			Foreground(lipgloss.Color("#04B575")).
+			Bold(true)
 
 	errorStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#FF5F87"))
+			Foreground(lipgloss.Color("#FF5F87"))
 
 	fadedStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#626262"))
+			Foreground(lipgloss.Color("#626262"))
 )
 
 type DashboardStats struct {
@@ -62,7 +62,7 @@ type model struct {
 
 func fetchStats() DashboardStats {
 	var s DashboardStats
-	
+
 	storage.DB.QueryRow("SELECT COUNT(*) FROM logs").Scan(&s.TotalLogs)
 
 	var logsLast5 int
@@ -160,7 +160,7 @@ func (m model) View() string {
 	renderStat("Total Logs:", m.stats.TotalLogs)
 	renderStat("Active Services:", m.stats.ActiveServices)
 	renderStat("Errors/min:", m.stats.ErrorsPerMin)
-	
+
 	view.WriteString("\n")
 	view.WriteString(headerStyle.Render("Top Services"))
 	view.WriteString("\n")
@@ -186,7 +186,7 @@ func (m model) View() string {
 	}
 
 	view.WriteString("\n" + fadedStyle.Render("Press q to quit"))
-	
+
 	return lipgloss.NewStyle().Margin(1, 2).Render(view.String())
 }
 

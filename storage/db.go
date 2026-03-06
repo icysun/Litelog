@@ -3,8 +3,8 @@ package storage
 import (
 	"database/sql"
 
-	_ "modernc.org/sqlite"
 	"github.com/yashnaidu/litelog/models"
+	_ "modernc.org/sqlite"
 )
 
 var DB *sql.DB
@@ -70,4 +70,3 @@ func InsertLogBatch(logs []models.LogEntry) error {
 	}
 	return tx.Commit()
 }
-

@@ -21,7 +21,7 @@ var ingestCmd = &cobra.Command{
 		scanner := bufio.NewScanner(os.Stdin)
 		for scanner.Scan() {
 			line := scanner.Text()
-			
+
 			level := "INFO"
 			upperLine := strings.ToUpper(line)
 			if strings.Contains(upperLine, "ERROR") || strings.Contains(upperLine, "ERR") {

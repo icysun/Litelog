@@ -3,9 +3,9 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"os"
 	"strings"
 	"text/tabwriter"
-	"os"
 
 	"github.com/spf13/cobra"
 	"github.com/yashnaidu/litelog/storage"
@@ -53,7 +53,7 @@ var queryCmd = &cobra.Command{
 			if err := rows.Scan(valuePtrs...); err != nil {
 				log.Fatalf("Failed to scan row: %v", err)
 			}
-			
+
 			var rowStrs []string
 			for _, val := range values {
 				if val == nil {

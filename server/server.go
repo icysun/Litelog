@@ -84,4 +84,3 @@ func StartHttpServer(port string) error {
 	fmt.Printf("LiteLog server listening on port %s\n", port)
 	return http.ListenAndServe(":"+port, nil)
 }
-
