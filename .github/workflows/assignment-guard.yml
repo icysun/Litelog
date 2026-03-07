@@ -17,6 +17,17 @@ jobs:
     steps:
       - name: Detect assignment requests without a proposal
         uses: actions/github-script@v7
+        env:
+          REPLY_BODY: |
+            Thanks for your interest!
+
+            Before being assigned, please share a **brief technical proposal** in a follow-up comment:
+
+            - What is the root cause or scope of this issue?
+            - What approach do you plan to take to fix or implement it?
+            - Are there any trade-offs or edge cases you have considered?
+
+            Once a maintainer reviews your approach and gives the go-ahead, we will be happy to assign this to you. This keeps the work focused and avoids duplicated effort.
         with:
           script: |
             const commenter = context.payload.comment.user.login;
@@ -44,18 +55,11 @@ jobs:
             );
 
             if (isAssignRequest && !hasProposal) {
+              const replyBody = `Hey @${commenter}, ` + process.env.REPLY_BODY;
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.payload.issue.number,
-                body: `Hey @${commenter}, thanks for your interest! 🙌
-
-Before being assigned, please share a **brief technical proposal** in a follow-up comment:
-
-- What is the root cause or scope of this issue?
-- What approach do you plan to take to fix or implement it?
-- Are there any trade-offs or edge cases you've considered?
-
-Once a maintainer reviews your approach and gives the go-ahead, we'll be happy to assign this to you. This keeps the work focused and avoids duplicated effort.`
+                body: replyBody
               });
             }
