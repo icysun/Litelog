@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussion / Question
+    url: https://github.com/yashnaiduu/litelog/discussions
+    about: Ask questions or start a conversation in GitHub Discussions.
+  - name: 📖 Documentation
+    url: https://yashnaiduu.github.io/litelog
+    about: Read the official LiteLog documentation.
+  - name: 🔒 Security Vulnerability
+    url: https://github.com/yashnaiduu/litelog/security/advisories/new
+    about: Report a security vulnerability privately via GitHub Security Advisories.

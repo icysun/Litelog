@@ -1,36 +1,54 @@
 ---
-name: Bug Report
+name: 🐛 Bug Report
 about: Report a reproducible bug in LiteLog
 title: '[Bug]: '
 labels: ['bug', 'needs-triage']
 assignees: ''
 ---
 
-## Describe the Bug
+## Description
 
-A clear and concise description of the issue.
+<!-- A clear and concise description of the bug. -->
 
 ## Steps to Reproduce
 
+<!-- Provide the exact steps to reproduce the issue. -->
+
 1. Run `./litelog ...`
-2. Send request / run command
-3. Observe error
+2. 
+3. 
 
 ## Expected Behavior
 
-What you expected to happen.
+<!-- What should have happened? -->
 
 ## Actual Behavior
 
-What actually happened. Include any error output or stack traces.
+<!-- What actually happened? Paste any error output, stack traces, or logs below. -->
+
+```
+[paste output here]
+```
 
 ## Environment
 
-- **LiteLog version** (`litelog version`):
-- **OS**:
-- **Go version** (`go version`):
-- **SQLite version** (if relevant):
+| Field              | Value |
+|--------------------|-------|
+| LiteLog version    | `litelog version` |
+| OS / Distro        |       |
+| Architecture       | x86_64 / arm64 |
+| Go version         | `go version` |
+| SQLite version     |       |
+
+## Severity
+
+<!-- How badly does this affect you? -->
+
+- [ ] 🔴 Critical — data loss / crash / security issue
+- [ ] 🟠 High — core feature broken, no workaround
+- [ ] 🟡 Medium — feature degraded, workaround exists
+- [ ] 🟢 Low — minor / cosmetic issue
 
 ## Additional Context
 
-Any other relevant details, logs, or screenshots.
+<!-- Any other relevant context, logs, screenshots, or config snippets. -->

@@ -1,0 +1,149 @@
+# GitHub Labels Definition for LiteLog
+# Apply with: gh label create --force (or use a label sync action)
+# Format: name | color (hex) | description
+
+labels:
+  # ── Status ──────────────────────────────────────────────────────────────────
+  - name: "needs-triage"
+    color: "E4E669"
+    description: "Newly opened — not yet reviewed or prioritized"
+
+  - name: "triaged"
+    color: "0075CA"
+    description: "Reviewed and prioritized by a maintainer"
+
+  - name: "in-progress"
+    color: "6E40C9"
+    description: "Actively being worked on"
+
+  - name: "blocked"
+    color: "B60205"
+    description: "Cannot proceed — waiting on external dependency or decision"
+
+  - name: "on-hold"
+    color: "CCCCCC"
+    description: "Temporarily paused — will be revisited"
+
+  - name: "stale"
+    color: "EDEDED"
+    description: "No activity for 30+ days — may be closed"
+
+  - name: "wontfix"
+    color: "FFFFFF"
+    description: "Out of scope or intentionally not addressed"
+
+  - name: "duplicate"
+    color: "CFD3D7"
+    description: "This issue or PR already exists"
+
+  - name: "invalid"
+    color: "E4E4E4"
+    description: "Does not meet contribution requirements"
+
+  # ── Type ────────────────────────────────────────────────────────────────────
+  - name: "bug"
+    color: "D73A4A"
+    description: "Something is broken or behaving incorrectly"
+
+  - name: "enhancement"
+    color: "A2EEEF"
+    description: "New feature or capability request"
+
+  - name: "performance"
+    color: "F9A825"
+    description: "Throughput, latency, or memory regression"
+
+  - name: "documentation"
+    color: "0075CA"
+    description: "Improvements or corrections to docs"
+
+  - name: "refactor"
+    color: "D4C5F9"
+    description: "Code quality improvement with no behavior change"
+
+  - name: "tech-debt"
+    color: "E99695"
+    description: "Known shortcuts or legacy patterns to be cleaned up"
+
+  - name: "security"
+    color: "EE0701"
+    description: "Security vulnerability or hardening improvement"
+
+  - name: "build"
+    color: "0052CC"
+    description: "CI, release pipeline, or tooling issue"
+
+  - name: "test"
+    color: "BFD4F2"
+    description: "Adding or fixing tests"
+
+  - name: "chore"
+    color: "EEEEEE"
+    description: "Maintenance task with no functional impact"
+
+  # ── Priority ────────────────────────────────────────────────────────────────
+  - name: "priority: critical"
+    color: "B60205"
+    description: "Must be resolved immediately — data loss or crash"
+
+  - name: "priority: high"
+    color: "E4534E"
+    description: "Important — significant user impact"
+
+  - name: "priority: medium"
+    color: "F9A825"
+    description: "Normal priority — scheduled for upcoming sprint"
+
+  - name: "priority: low"
+    color: "0E8A16"
+    description: "Nice to have — low urgency"
+
+  # ── Area ────────────────────────────────────────────────────────────────────
+  - name: "area: cli"
+    color: "1D76DB"
+    description: "CLI commands, flags, and user-facing UX"
+
+  - name: "area: storage"
+    color: "5319E7"
+    description: "SQLite / storage layer"
+
+  - name: "area: server"
+    color: "0052CC"
+    description: "HTTP server and API"
+
+  - name: "area: query"
+    color: "006B75"
+    description: "Log query engine and filtering"
+
+  - name: "area: ingestion"
+    color: "C5DEF5"
+    description: "Log ingestion pipeline"
+
+  - name: "area: config"
+    color: "BFD4F2"
+    description: "Configuration and environment handling"
+
+  - name: "area: docs"
+    color: "0075CA"
+    description: "Website, README, and documentation"
+
+  # ── Contributor ─────────────────────────────────────────────────────────────
+  - name: "good first issue"
+    color: "7057FF"
+    description: "Good for newcomers to the project"
+
+  - name: "help wanted"
+    color: "008672"
+    description: "Extra attention or community help needed"
+
+  - name: "needs: more info"
+    color: "D4C5F9"
+    description: "Requires additional context from the reporter"
+
+  - name: "needs: design"
+    color: "FEF2C0"
+    description: "Requires design input before implementation"
+
+  - name: "needs: discussion"
+    color: "C2E0C6"
+    description: "Requires broader team or community discussion"
