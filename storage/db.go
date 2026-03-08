@@ -70,3 +70,49 @@ func InsertLogBatch(logs []models.LogEntry) error {
 	}
 	return tx.Commit()
 }
+
+func QueryLogs(level, service string, limit int) ([]models.LogEntry, error) {
+	query := "SELECT id, timestamp, level, service, message FROM logs WHERE 1=1"
+	args := []interface{}{}
+
+	if level != "" {
+		query += " AND level = ?"
+		args = append(args, level)
+	}
+	if service != "" {
+		query += " AND service = ?"
+		args = append(args, service)
+	}
+	
+	if limit > 0 {
+		query += " ORDER BY timestamp DESC LIMIT ?"
+		args = append(args, limit)
+	} else {
+		query += " ORDER BY timestamp DESC"
+	}
+
+	rows, err := DB.Query(query, args...)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var logs []models.LogEntry
+	for rows.Next() {
+		var log models.LogEntry
+		if err := rows.Scan(&log.ID, &log.Timestamp, &log.Level, &log.Service, &log.Message); err != nil {
+			return nil, err
+		}
+		logs = append(logs, log)
+	}
+	return logs, nil
+}
+
+func DeleteOldLogs(cutoff string) (int64, error) {
+	query := `DELETE FROM logs WHERE timestamp < ?`
+	res, err := DB.Exec(query, cutoff)
+	if err != nil {
+		return 0, err
+	}
+	return res.RowsAffected()
+}
