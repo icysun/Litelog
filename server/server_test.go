@@ -48,7 +48,10 @@ func TestIngestEndpoint(t *testing.T) {
 		}
 
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("ok\n"))
+		_, err := w.Write([]byte("ok\n"))
+		if err != nil {
+			t.Logf("Failed to write response in test handler: %v", err)
+		}
 	})
 
 	// Test case 1: Valid payload

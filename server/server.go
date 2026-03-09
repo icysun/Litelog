@@ -100,7 +100,10 @@ func StartHttpServer(ctx context.Context, wg *sync.WaitGroup, port string, store
 		}
 
 		w.WriteHeader(http.StatusOK)
-		_, _ = w.Write([]byte("ok\n"))
+		_, err := w.Write([]byte("ok\n"))
+		if err != nil {
+			log.Printf("Failed to write response to client: %v", err)
+		}
 	})
 
 	srv := &http.Server{
