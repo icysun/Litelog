@@ -10,33 +10,34 @@ import (
 func TestDBInitialization(t *testing.T) {
 	dbPath := ":memory:" // Use in-memory db
 
-	err := InitDB(dbPath)
+	store, err := InitDB(dbPath)
 	if err != nil {
 		t.Fatalf("Failed to initialize database: %v", err)
 	}
 
-	if DB == nil {
+	if store.DB == nil {
 		t.Fatal("DB instance is nil after successful initialization")
 	}
 
 	// Clean up after tests
-	defer DB.Close()
+	defer store.DB.Close()
 }
 
 func TestInsertLog(t *testing.T) {
 	dbPath := ":memory:"
-	if err := InitDB(dbPath); err != nil {
+	store, err := InitDB(dbPath)
+	if err != nil {
 		t.Fatalf("Failed to initialize database: %v", err)
 	}
-	defer DB.Close()
+	defer store.DB.Close()
 
-	err := InsertLog("INFO", "test-service", "this is a test message")
+	err = store.InsertLog("INFO", "test-service", "this is a test message")
 	if err != nil {
 		t.Errorf("InsertLog failed: %v", err)
 	}
 
 	// Verify insert
-	logs, err := QueryLogs("INFO", "test-service", 10)
+	logs, err := store.QueryLogs("INFO", "test-service", 10)
 	if err != nil {
 		t.Fatalf("QueryLogs failed: %v", err)
 	}
@@ -52,10 +53,11 @@ func TestInsertLog(t *testing.T) {
 
 func TestInsertLogBatch(t *testing.T) {
 	dbPath := ":memory:"
-	if err := InitDB(dbPath); err != nil {
+	store, err := InitDB(dbPath)
+	if err != nil {
 		t.Fatalf("Failed to initialize database: %v", err)
 	}
-	defer DB.Close()
+	defer store.DB.Close()
 
 	batch := []models.LogEntry{
 		{Level: "ERROR", Service: "auth", Message: "login failed"},
@@ -63,12 +65,12 @@ func TestInsertLogBatch(t *testing.T) {
 		{Level: "ERROR", Service: "payment", Message: "timeout"},
 	}
 
-	err := InsertLogBatch(batch)
+	err = store.InsertLogBatch(batch)
 	if err != nil {
 		t.Errorf("InsertLogBatch failed: %v", err)
 	}
 
-	logs, err := QueryLogs("ERROR", "", 10) // Should get 2 errors
+	logs, err := store.QueryLogs("ERROR", "", 10) // Should get 2 errors
 	if err != nil {
 		t.Fatalf("QueryLogs failed: %v", err)
 	}
@@ -80,17 +82,18 @@ func TestInsertLogBatch(t *testing.T) {
 
 func TestQueryLogsFiltering(t *testing.T) {
 	dbPath := ":memory:"
-	if err := InitDB(dbPath); err != nil {
+	store, err := InitDB(dbPath)
+	if err != nil {
 		t.Fatalf("Failed to initialize database: %v", err)
 	}
-	defer DB.Close()
+	defer store.DB.Close()
 
-	_ = InsertLog("INFO", "srv-A", "msga1")
-	_ = InsertLog("WARN", "srv-B", "msgb1")
-	_ = InsertLog("INFO", "srv-C", "msgc1")
+	_ = store.InsertLog("INFO", "srv-A", "msga1")
+	_ = store.InsertLog("WARN", "srv-B", "msgb1")
+	_ = store.InsertLog("INFO", "srv-C", "msgc1")
 
 	// Query just INFO
-	logs, err := QueryLogs("INFO", "", 10)
+	logs, err := store.QueryLogs("INFO", "", 10)
 	if err != nil {
 		t.Fatalf("QueryLogs failed: %v", err)
 	}
@@ -99,7 +102,7 @@ func TestQueryLogsFiltering(t *testing.T) {
 	}
 
 	// Query specific service
-	logs, err = QueryLogs("", "srv-B", 10)
+	logs, err = store.QueryLogs("", "srv-B", 10)
 	if err != nil {
 		t.Fatalf("QueryLogs failed: %v", err)
 	}
@@ -113,17 +116,18 @@ func TestQueryLogsFiltering(t *testing.T) {
 
 func TestDeleteOldLogs(t *testing.T) {
 	dbPath := ":memory:"
-	if err := InitDB(dbPath); err != nil {
+	store, err := InitDB(dbPath)
+	if err != nil {
 		t.Fatalf("Failed to initialize database: %v", err)
 	}
-	defer DB.Close()
+	defer store.DB.Close()
 
-	_ = InsertLog("INFO", "test", "old")
+	_ = store.InsertLog("INFO", "test", "old")
 
 	// Dummy future timestamp
 	futureCutoff := time.Now().Add(24 * time.Hour).Format("2006-01-02 15:04:05")
 
-	deletedCount, err := DeleteOldLogs(futureCutoff)
+	deletedCount, err := store.DeleteOldLogs(futureCutoff)
 	if err != nil {
 		t.Fatalf("DeleteOldLogs failed: %v", err)
 	}

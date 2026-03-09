@@ -17,11 +17,12 @@ var queryCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		query := args[0]
-		if err := storage.InitDB(dbPath); err != nil {
+		store, err := storage.InitDB(dbPath)
+		if err != nil {
 			log.Fatalf("Failed to initialize database: %v", err)
 		}
 
-		rows, err := storage.DB.Query(query)
+		rows, err := store.DB.Query(query)
 		if err != nil {
 			log.Fatalf("Query failed: %v", err)
 		}

@@ -14,10 +14,11 @@ import (
 
 func TestIngestEndpoint(t *testing.T) {
 	// Initialize an in-memory database to avoid relying on filesystem db
-	if err := storage.InitDB(":memory:"); err != nil {
+	store, err := storage.InitDB(":memory:")
+	if err != nil {
 		t.Fatalf("Failed to init storage DB: %v", err)
 	}
-	defer storage.DB.Close()
+	defer store.DB.Close()
 
 	// Ensure the queue is initialized clean
 	LogQueue = make(chan models.LogEntry, 10)

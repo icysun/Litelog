@@ -7,13 +7,20 @@ import (
 	_ "modernc.org/sqlite"
 )
 
-var DB *sql.DB
+type Store struct {
+	DB *sql.DB
+}
 
-func InitDB(dbPath string) error {
-	var err error
-	DB, err = sql.Open("sqlite", dbPath)
+func NewStore(db *sql.DB) *Store {
+	return &Store{
+		DB: db,
+	}
+}
+
+func InitDB(dbPath string) (*Store, error) {
+	db, err := sql.Open("sqlite", dbPath)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	pragmas := []string{
@@ -23,8 +30,8 @@ func InitDB(dbPath string) error {
 		"PRAGMA busy_timeout = 5000;",
 	}
 	for _, pragma := range pragmas {
-		if _, err := DB.Exec(pragma); err != nil {
-			return err
+		if _, err := db.Exec(pragma); err != nil {
+			return nil, err
 		}
 	}
 
@@ -40,18 +47,22 @@ func InitDB(dbPath string) error {
 	CREATE INDEX IF NOT EXISTS idx_logs_service ON logs(service);
 	CREATE INDEX IF NOT EXISTS idx_logs_timestamp ON logs(timestamp);
 	`
-	_, err = DB.Exec(createTableQuery)
-	return err
+	_, err = db.Exec(createTableQuery)
+	if err != nil {
+		return nil, err
+	}
+
+	return NewStore(db), nil
 }
 
-func InsertLog(level, service, message string) error {
+func (s *Store) InsertLog(level, service, message string) error {
 	query := `INSERT INTO logs (level, service, message) VALUES (?, ?, ?)`
-	_, err := DB.Exec(query, level, service, message)
+	_, err := s.DB.Exec(query, level, service, message)
 	return err
 }
 
-func InsertLogBatch(logs []models.LogEntry) error {
-	tx, err := DB.Begin()
+func (s *Store) InsertLogBatch(logs []models.LogEntry) error {
+	tx, err := s.DB.Begin()
 	if err != nil {
 		return err
 	}
@@ -71,7 +82,7 @@ func InsertLogBatch(logs []models.LogEntry) error {
 	return tx.Commit()
 }
 
-func QueryLogs(level, service string, limit int) ([]models.LogEntry, error) {
+func (s *Store) QueryLogs(level, service string, limit int) ([]models.LogEntry, error) {
 	query := "SELECT id, timestamp, level, service, message FROM logs WHERE 1=1"
 	args := []interface{}{}
 
@@ -91,7 +102,7 @@ func QueryLogs(level, service string, limit int) ([]models.LogEntry, error) {
 		query += " ORDER BY timestamp DESC"
 	}
 
-	rows, err := DB.Query(query, args...)
+	rows, err := s.DB.Query(query, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -108,9 +119,9 @@ func QueryLogs(level, service string, limit int) ([]models.LogEntry, error) {
 	return logs, nil
 }
 
-func DeleteOldLogs(cutoff string) (int64, error) {
+func (s *Store) DeleteOldLogs(cutoff string) (int64, error) {
 	query := `DELETE FROM logs WHERE timestamp < ?`
-	res, err := DB.Exec(query, cutoff)
+	res, err := s.DB.Exec(query, cutoff)
 	if err != nil {
 		return 0, err
 	}

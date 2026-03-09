@@ -19,7 +19,7 @@ func init() {
 	LogQueue = make(chan models.LogEntry, 100000)
 }
 
-func StartAsyncWorker(ctx context.Context, wg *sync.WaitGroup) {
+func StartAsyncWorker(ctx context.Context, wg *sync.WaitGroup, store *storage.Store) {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
@@ -29,7 +29,7 @@ func StartAsyncWorker(ctx context.Context, wg *sync.WaitGroup) {
 
 		flush := func() {
 			if len(batch) > 0 {
-				if err := storage.InsertLogBatch(batch); err != nil {
+				if err := store.InsertLogBatch(batch); err != nil {
 					log.Printf("Batch insert failed: %v", err)
 				}
 				batch = batch[:0]
@@ -67,8 +67,8 @@ type IngestRequest struct {
 	Message string `json:"message"`
 }
 
-func StartHttpServer(ctx context.Context, wg *sync.WaitGroup, port string) error {
-	StartAsyncWorker(ctx, wg)
+func StartHttpServer(ctx context.Context, wg *sync.WaitGroup, port string, store *storage.Store) error {
+	StartAsyncWorker(ctx, wg, store)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/ingest", func(w http.ResponseWriter, r *http.Request) {

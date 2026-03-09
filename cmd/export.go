@@ -19,7 +19,8 @@ var exportCmd = &cobra.Command{
 	Use:   "export",
 	Short: "Export logs to a file",
 	Run: func(cmd *cobra.Command, args []string) {
-		if err := storage.InitDB(dbPath); err != nil {
+		store, err := storage.InitDB(dbPath)
+		if err != nil {
 			log.Fatalf("Failed to initialize database: %v", err)
 		}
 
@@ -33,7 +34,7 @@ var exportCmd = &cobra.Command{
 
 		query += " ORDER BY id ASC"
 
-		rows, err := storage.DB.Query(query, queryArgs...)
+		rows, err := store.DB.Query(query, queryArgs...)
 		if err != nil {
 			log.Fatalf("Export query failed: %v", err)
 		}

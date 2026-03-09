@@ -40,7 +40,8 @@ var startCmd = &cobra.Command{
 	Use:   "start",
 	Short: "Start the LiteLog ingestion server",
 	Run: func(cmd *cobra.Command, args []string) {
-		if err := storage.InitDB(dbPath); err != nil {
+		store, err := storage.InitDB(dbPath)
+		if err != nil {
 			log.Fatalf("Failed to initialize database: %v", err)
 		}
 
@@ -70,14 +71,14 @@ var startCmd = &cobra.Command{
 					case <-ctx.Done():
 						return
 					case <-ticker.C:
-						storage.DB.Exec("DELETE FROM logs WHERE timestamp < datetime('now', ?)", modifier)
+						store.DB.Exec("DELETE FROM logs WHERE timestamp < datetime('now', ?)", modifier)
 					}
 				}
 			}()
 			log.Printf("Log retention set to %s\n", retention)
 		}
 
-		if err := server.StartHttpServer(ctx, &wg, port); err != nil {
+		if err := server.StartHttpServer(ctx, &wg, port, store); err != nil {
 			log.Fatalf("Server failed: %v", err)
 		}
 
